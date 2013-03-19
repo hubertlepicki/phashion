@@ -10,6 +10,22 @@ static VALUE image_hash_for(VALUE self, VALUE _filename) {
     return ULL2NUM(hash);
 }
 
+static VALUE image_mhash_for(VALUE self, VALUE _filename) {
+    char * filename = StringValuePtr(_filename);
+    uint8_t *hash;
+    int len;
+
+    if (NULL == (hash = ph_mh_imagehash(filename, len))) {
+      rb_raise(rb_eRuntimeError, "Unknown pHash error");
+    }
+
+    VALUE array = rb_ary_new2(72);
+    for (int i=0; i<72; i++)
+      rb_ary_push(array, CHR2FIX(hash[i]));
+
+    return array;
+}
+
 
 static VALUE hamming_distance(VALUE self, VALUE a, VALUE b) {
     int result = 0;
@@ -29,6 +45,7 @@ extern "C" {
 
     rb_define_singleton_method(c, "hamming_distance", (VALUE(*)(ANYARGS))hamming_distance, 2);
     rb_define_singleton_method(c, "image_hash_for", (VALUE(*)(ANYARGS))image_hash_for, 1);
+    rb_define_singleton_method(c, "image_mhash_for", (VALUE(*)(ANYARGS))image_mhash_for, 1);
   }
 #ifdef __cplusplus
 }

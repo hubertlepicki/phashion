@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    phashion (1.0.5)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rake (10.0.3)
+    rake-compiler (0.8.3)
+      rake
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  phashion!
+  rake-compiler (>= 0.7.0)

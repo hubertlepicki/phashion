@@ -35,6 +35,16 @@ class TestPhashion < Test::Unit::TestCase
     assert_duplicate jpg, gif
   end
 
+  def test_mhash
+    mhash = Phashion.image_mhash_for(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg')
+    assert mhash.length == 72
+  end
+
+  def test_hash
+    hash = Phashion.image_hash_for(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg')
+    assert hash.class == Fixnum
+  end
+
   private
 
   def assert_duplicate(a, b)
@@ -43,5 +53,5 @@ class TestPhashion < Test::Unit::TestCase
 
   def assert_not_duplicate(a, b)
     assert !a.duplicate?(b), "#{a.filename} dupe of #{b.filename}"
-  end  
+  end
 end

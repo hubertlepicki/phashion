@@ -23,8 +23,12 @@ module Phashion
       Phashion.hamming_distance(fingerprint, other.fingerprint) < SETTINGS[:dupe_threshold]
     end
 
-    def fingerprint
-      @hash ||= Phashion.image_hash_for(@filename)
+    def fingerprint(type = :phash)
+      if type == :phash
+        @hash ||= Phashion.image_hash_for(@filename)
+      else
+        @mhash ||= Phashion.image_mhash_for(@filename)
+      end
     end
   end
 
