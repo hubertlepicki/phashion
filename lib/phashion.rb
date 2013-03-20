@@ -33,9 +33,13 @@ module Phashion
 
     def fingerprint_string(type = :phash)
       if type == :phash
-        fingerprint(type).to_s(2)
+        str = fingerprint(type).to_s(2)
+        "#{'0' * (64 - str.length)}#{str}"
       else
-        fingerprint(type).map {|i| i.to_s(2)}.join('')
+        fingerprint(type).map {|i|
+          str = i.to_s(2)
+          "#{'0' * (8 - str.length)}#{str}"
+        }.join('')
       end
     end
   end

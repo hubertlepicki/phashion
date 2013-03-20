@@ -35,15 +35,26 @@ class TestPhashion < Test::Unit::TestCase
     assert_duplicate jpg, gif
   end
 
+  def test_hash
+    hash = Phashion::Image.new(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg').fingerprint
+    assert hash.class == Fixnum
+  end
+
   def test_mhash
-    mhash = Phashion.image_mhash_for(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg')
+    mhash = Phashion::Image.new(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg').fingerprint(:mhash)
     assert mhash.length == 72
   end
 
   def test_hash
-    hash = Phashion.image_hash_for(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg')
-    assert hash.class == Fixnum
+    hash = Phashion::Image.new(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg').fingerprint_string
+    assert hash.length == 64
   end
+
+  def test_mhash
+    mhash = Phashion::Image.new(File.dirname(__FILE__) + '/jpg/Broccoli_Super_Food.jpg').fingerprint_string(:mhash)
+    assert mhash.length == 72 * 8
+  end
+
 
   private
 
