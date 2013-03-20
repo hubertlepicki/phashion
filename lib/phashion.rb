@@ -30,8 +30,15 @@ module Phashion
         @mhash ||= Phashion.image_mhash_for(@filename)
       end
     end
-  end
 
+    def fingerprint_string(type = :phash)
+      if type == :phash
+        fingerprint(type).to_s(2)
+      else
+        fingerprint(type).map {|i| i.to_s(2)}.join('')
+      end
+    end
+  end
 end
 
 require 'phashion_ext'
